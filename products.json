@@ -1,0 +1,56 @@
+[
+    {
+        "name": "Stylish Glasses",
+        "price": 99.00,
+        "image": "/static/images/glasses1.jpg",
+        "featured": true
+    },
+    {
+        "name": "Elegant Sunglasses",
+        "price": 129.00,
+        "image": "/static/images/glasses2.png",
+        "featured": true
+    },
+    {
+        "name": "Trendy Frames",
+        "price": 89.00,
+        "image": "/static/images/glasses3.png",
+        "featured": true
+    },
+    {
+        "name": "Classic Black Glasses",
+        "price": 120.00,
+        "image": "/static/images/glasses7.png",
+        "featured": false
+    },
+    {
+        "name": "Trendy Round Frames",
+        "price": 135.00,
+        "image": "/static/images/glasses8.png",
+        "featured": false
+    },
+    {
+        "name": "Elegant Gold Frames",
+        "price": 150.00,
+        "image": "/static/images/glasses9.png",
+        "featured": false
+    },
+    {
+        "name": "Bold Square Frames",
+        "price": 110.00,
+        "image": "/static/images/glasses6.png",
+        "featured": false
+    },
+    {
+        "name": "Lightweight Metal Frames",
+        "price": 130.00,
+        "image": "/static/images/glasses4.png",
+        "featured": false
+    },
+    {
+        "name": "Premium Aviators",
+        "price": 145.00,
+        "image": "/static/images/glasses5.png",
+        "featured": false
+    }
+]

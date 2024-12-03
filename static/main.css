@@ -1,0 +1,256 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Import via Google Fonts */
+}
+
+body {
+    background: linear-gradient(to bottom right, #1a1a2e, #16213e); /* Bold, deep gradient background */
+    color: #ffffff; /* Light text for contrast */
+    font-size: 16px;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Vibrant gradient */
+    padding: 15px 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff6f61; /* Pop of bold coral for the logo */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+    color: #ff6f61;
+    text-shadow: 0px 0px 6px rgba(255, 111, 97, 0.8);
+}
+
+/* Hero Section */
+.hero {
+    margin-top: 100px;
+    padding: 60px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #ff0099, #493240); /* Eye-catching gradient */
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    max-width: 1200px;
+    width: 100%;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.6);
+}
+
+.hero p {
+    margin: 20px 0;
+    font-size: 1.3rem;
+    color: #ffddc1; /* Warm accent color for text */
+    line-height: 1.8;
+}
+
+.hero button {
+    margin-top: 30px;
+    padding: 15px 40px;
+    background: linear-gradient(to right, #00f260, #0575e6); /* Bright teal gradient */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hero button:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(to right, #0575e6, #00f260);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Product Cards */
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 80px auto;
+    max-width: 1200px;
+    justify-content: center;
+}
+
+.product-card {
+    background: linear-gradient(135deg, #1e3c72, #2a5298); /* Bold gradient for cards */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    width: calc(33.333% - 20px);
+    max-width: 350px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.product-card .info {
+    padding: 20px;
+    text-align: center;
+}
+
+.product-card .info h3 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.product-card .info p {
+    font-size: 1.1rem;
+    color: #b3c7d6; /* Cool gray for description */
+    margin-bottom: 15px;
+}
+
+.product-card .info button {
+    padding: 10px 30px;
+    background: linear-gradient(to right, #ff416c, #ff4b2b); /* Warm red gradient */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.product-card .info button:hover {
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    transform: translateY(-3px);
+}
+
+/* Footer */
+footer {
+    margin-top: 80px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Bold footer gradient */
+    color: #ffffff;
+    padding: 40px 20px;
+    text-align: center;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+footer p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+footer a {
+    color: #ff6f61; /* Coral link color */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+footer a:hover {
+    color: #ffffff;
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.8);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+    }
+
+    .products {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .product-card {
+        width: 100%;
+    }
+
+    .hero {
+        padding: 40px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+.about-section {
+    padding: 120px 20px 20px;
+    background: linear-gradient(135deg, #ff6f61, #ff9a8b); /* Vivid gradient for About section */
+    text-align: center;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#shop_button {
+    display: inline-block; /* Make it behave like a button */
+    padding: 10px 20px; /* Add padding for size */
+    background-color: #007BFF; /* Button background color */
+    color: #fff; /* Button text color */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Text size */
+    font-weight: bold; /* Bold text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth hover effect */
+}

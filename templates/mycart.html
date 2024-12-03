@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glasses Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> <!-- Link to CSS -->
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Include AG-Grid CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+</head>
+<body>
+
+    <!-- Header -->
+    {% include "navbar.html" %}
+
+    <!-- Display Cart Message -->
+    <h4 style="padding-top: 100px" id="cart-message"></h4>
+
+    <!-- Grid Container (Initially Hidden) -->
+    <div id="myGrid" style="height: 400px; width: 100%;" class="ag-theme-alpine"></div>
+
+</body>
+
+<script type="text/javascript">
+    async function fetchData() {
+        const apiUrl = "http://127.0.0.1:5000/api/get-mycart";
+
+        try {
+            const response = await fetch(apiUrl);
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+
+            const mycart = await response.json();
+
+            const cartMessageElement = document.getElementById('cart-message');
+
+            if (mycart && mycart.length === 0) {
+                cartMessageElement.textContent = "You have no items in your cart."; // If cart is empty
+                document.getElementById('myGrid').style.display = "none"; // Hide the grid if cart is empty
+            } else {
+                cartMessageElement.textContent = ""; // Do nothing if there are items in the cart
+                document.getElementById('myGrid').style.display = "block"; // Show the grid if there are items
+                initializeGrid(mycart); // Initialize and populate the grid with data from the cart
+            }
+
+        } catch (error) {
+            // Handle errors
+            console.error("Failed to fetch API data:", error);
+        }
+    }
+
+    // Function to initialize and display the grid
+    function initializeGrid(cartItems) {
+        const gridOptions = {
+            rowData: cartItems, // Use cart items as rowData
+            columnDefs: [
+                { field: "make" },
+                { field: "model" },
+                { field: "price" },
+                { field: "electric" },
+            ]
+        };
+
+        // Create the grid
+        new agGrid.Grid(document.querySelector("#myGrid"), gridOptions);
+    }
+
+    // Call the fetchData function when the page loads
+    window.addEventListener("load", fetchData);
+
+</script>
+
+</html>

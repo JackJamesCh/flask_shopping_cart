@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glasses Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> <!-- Link to CSS -->
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    {% include "navbar.html" %}
+
+    <a href="{{ url_for('shop') }}" class="shop-button">Shop Now</a>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Discover Your Perfect Pair</h1>
+        <p>Shop the latest JACKS Collection of glasses and sunglasses designed to fit you perfectly.</p>
+        <a id="shop_button" href="{{url_for('shop')}}">Shop Now</a>
+    </section>
+
+    <!-- Product Section -->
+    <section id="products" class="products">
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Glasses Shop. All rights reserved. <a href="#contact">Contact Us</a></p>
+    </footer>
+</body>
+
+<script type="text/javascript">
+    // Function to fetch data from an API
+    async function fetchData() {
+        const apiUrl = "http://127.0.0.1:5000/api/get-featured-products"; // Replace with your API endpoint
+
+        try {
+            // Make the API call
+            const response = await fetch(apiUrl);
+
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+
+            // Wait for the JSON data to resolve
+            const products = await response.json();
+
+            // Ensure products is an array
+            if (!Array.isArray(products)) {
+                throw new Error("API response is not an array");
+            }
+
+            // Inject the product cards into the page
+            const productContainer = document.querySelector(".products"); // Adjust to match your container's class or ID
+            productContainer.innerHTML = ""; // Clear existing products
+
+            products.forEach((product) => {
+                // Create product card dynamically
+                const productCard = document.createElement("div");
+                productCard.classList.add("product-card");
+
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <div class="info">
+                        <h3>${product.name}</h3>
+                        <p>$${product.price}</p>
+                        <button>Add to Cart</button>
+                    </div>
+                `;
+
+                productContainer.appendChild(productCard);
+            });
+
+        } catch (error) {
+            // Handle errors
+            console.error("Failed to fetch API data:", error);
+        }
+    }
+
+    // Call the fetchData function when the page loads
+    window.addEventListener("load", fetchData);
+</script>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Glasses Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    {% include "navbar.html" %}
+
+    <!-- About Section -->
+    <main>
+        <section class="about-section">
+            <h1>About Us</h1>
+            <p>At Glasses Shop, we believe in creating eyewear that combines style, quality, and comfort. Since our establishment, we’ve been dedicated to providing the perfect frames for every individual.</p>
+
+            <div class="about-text">
+                <h2>Our Vision</h2>
+                <p>We aim to redefine eyewear by offering modern designs and innovative solutions that cater to all styles and needs. Our goal is to ensure that every customer leaves with a product they love.</p>
+
+                <h2>Why Choose Us?</h2>
+                <ul>
+                    <li>Top-notch craftsmanship with attention to detail.</li>
+                    <li>Wide range of styles and designs to fit every personality.</li>
+                    <li>Customer-focused services and easy returns.</li>
+                </ul>
+
+                <p>Explore our collection and see why countless customers trust Glasses Shop for their eyewear needs!</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Glasses Shop. All rights reserved. <a href="#contact">Contact Us</a></p>
+    </footer>
+</body>
+</html>
