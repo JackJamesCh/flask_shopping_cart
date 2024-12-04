@@ -44,12 +44,16 @@
 
             if (mycart && mycart.length === 0) {
                 cartMessageElement.textContent = "You have no items in your cart."; // If cart is empty
+                cartMessageElement.className = "cart-message-sad"; // Apply sad animation class
                 document.getElementById('myGrid').style.display = "none"; // Hide the grid if cart is empty
             } else {
-                cartMessageElement.textContent = "Glasses in your cart:"; // Do nothing if there are items in the cart
+                cartMessageElement.textContent = "Glasses in your cart:";
+                cartMessageElement.className = "cart-message-animated"; // Apply animated class for this case
                 document.getElementById('myGrid').style.display = "block"; // Show the grid if there are items
                 initializeGrid(mycart); // Initialize and populate the grid with data from the cart
             }
+
+
 
         } catch (error) {
             // Handle errors

@@ -1,20 +1,26 @@
 [
     {
-        "featured": true,
-        "image": "/static/images/glasses1.jpg",
-        "name": "Stylish Glasses",
-        "price": 99
+        "featured": false,
+        "image": "/static/images/glasses8.png",
+        "name": "Trendy Round Frames",
+        "price": 135
     },
     {
-        "featured": true,
-        "image": "/static/images/glasses3.png",
-        "name": "Trendy Frames",
-        "price": 89
+        "featured": false,
+        "image": "/static/images/glasses9.png",
+        "name": "Elegant Gold Frames",
+        "price": 150
     },
     {
-        "featured": true,
-        "image": "/static/images/glasses1.jpg",
-        "name": "Stylish Glasses",
-        "price": 99
+        "featured": false,
+        "image": "/static/images/glasses7.png",
+        "name": "Classic Black Glasses",
+        "price": 120
+    },
+    {
+        "featured": false,
+        "image": "/static/images/glasses7.png",
+        "name": "Classic Black Glasses",
+        "price": 120
     }
 ]

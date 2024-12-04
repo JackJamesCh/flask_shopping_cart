@@ -51,7 +51,7 @@ header .logo::after {
     width: 0;  /* Start with zero width */
     height: 3px; /* Thickness of the underline */
     background-color: #ff6f61;  /* Color of the underline */
-    animation: drawUnderline 2s ease-in-out forwards; /* Animate once and retain the final state */
+    animation: drawUnderline 1s ease-in-out forwards; /* Animate once and retain the final state */
 }
 
 /* Keyframes for the underline animation */
@@ -322,3 +322,78 @@ footer a:hover {
     background: linear-gradient(135deg, #0575e6, #00f260); /* Reverse the gradient on hover */
     transform: scale(1.05); /* Slightly enlarge the button */
 }
+
+/* Style for the cart message text */
+.cart-message-animated {
+    font-size: 1.5rem; /* Adjust text size */
+    color: #59f19c; /* Set the text color */
+    font-weight: 600; /* Make the text semi-bold */
+    text-align: center; /* Center the text */
+    text-transform: uppercase; /* Optional: Uppercase text */
+    letter-spacing: 1px; /* Space out the letters slightly */
+    position: relative; /* Required for pseudo-element positioning */
+    animation: fadeInUnderline 1s ease-in-out forwards; /* Trigger the underline animation */
+}
+
+/* Underline effect animation */
+.cart-message-animated::after {
+    content: ""; /* Empty content for the underline */
+    position: absolute;
+    left: 50%; /* Start in the center */
+    bottom: -5px; /* Adjust position below the text */
+    width: 0; /* Initially no underline */
+    height: 3px; /* Thickness of the underline */
+    background-color: #59f19c; /* Underline color */
+    transform: translateX(-50%); /* Center the underline */
+    animation: drawUnderline 1s ease-in-out forwards; /* Run the underline animation */
+}
+
+/* Keyframes for the underline animation */
+@keyframes drawUnderline {
+    0% {
+        width: 0; /* Start with no underline */
+    }
+    100% {
+        width: 100%; /* Expand the underline fully */
+    }
+}
+
+/* Keyframes for fade-in effect */
+@keyframes fadeInUnderline {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cart-message-sad {
+    font-size: 1.5rem; /* Adjust text size */
+    color: #ff758c; /* Set the text color */
+    font-weight: 600; /* Make the text semi-bold */
+    text-align: center; /* Center the text */
+    text-transform: uppercase; /* Optional: Uppercase text */
+    letter-spacing: 1px; /* Slightly space out letters */
+    position: relative; /* Required for animation */
+    animation: sadDrop 1.5s ease-in-out forwards; /* Apply the sad drop animation */
+}
+
+/* Keyframes for the sad drop animation */
+@keyframes sadDrop {
+    0% {
+        transform: translateY(0); /* Initial position */
+        opacity: 1; /* Fully visible */
+    }
+    50% {
+        transform: translateY(10px); /* Drop down slightly */
+        opacity: 0.7; /* Slightly faded */
+    }
+    100% {
+        transform: translateY(0); /* Return to initial position */
+        opacity: 1; /* Fully visible again */
+    }
+}
+

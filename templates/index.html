@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> <!-- Link to CSS -->
     <!-- Include Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='helper.js') }}"></script>
+
     <style>
         .featured-heading {
             font-size: 2.5rem; /* Adjust the size as per your preference */
@@ -99,30 +101,6 @@
         } catch (error) {
             // Handle errors
             console.error("Failed to fetch API data:", error);
-        }
-    }
-
-    // Function to call the "Add to Cart" API
-    async function addToCart(product) {
-        const apiUrl = "http://127.0.0.1:5000/api/add-to-cart"; // Replace with your add-to-cart API endpoint
-
-        try {
-            const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(product),
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status} - ${response.statusText}`);
-            }
-
-            alert(`${product.name} has been added to your cart!`);
-        } catch (error) {
-            console.error("Failed to add product to cart:", error);
-            alert("Failed to add product to cart. Please try again.");
         }
     }
 

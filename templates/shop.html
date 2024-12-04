@@ -6,6 +6,8 @@
     <title>Our Products - Glasses Shop</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> <!-- Link the CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='helper.js') }}"></script>
+
 </head>
 <body>
     <!-- Header -->
@@ -62,11 +64,20 @@
                     <div class="info">
                         <h3>${product.name}</h3>
                         <p>$${product.price}</p>
-                        <button>Add to Cart</button>
+                        <button class="add-to-cart" data-product='${JSON.stringify(product)}'>Add to Cart</button>
                     </div>
                 `;
 
                 productContainer.appendChild(productCard);
+            });
+
+            // Add event listeners for the "Add to Cart" buttons
+            const cartButtons = document.querySelectorAll(".add-to-cart");
+            cartButtons.forEach((button) => {
+                button.addEventListener("click", (event) => {
+                    const productData = JSON.parse(event.target.dataset.product);
+                    addToCart(productData);
+                });
             });
 
         } catch (error) {
