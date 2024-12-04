@@ -1,1 +1,20 @@
-[]
+[
+    {
+        "featured": true,
+        "image": "/static/images/glasses1.jpg",
+        "name": "Stylish Glasses",
+        "price": 99
+    },
+    {
+        "featured": true,
+        "image": "/static/images/glasses3.png",
+        "name": "Trendy Frames",
+        "price": 89
+    },
+    {
+        "featured": true,
+        "image": "/static/images/glasses1.jpg",
+        "name": "Stylish Glasses",
+        "price": 99
+    }
+]

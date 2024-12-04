@@ -31,12 +31,37 @@ header {
     align-items: center;
 }
 
+/* Styling for the logo */
 header .logo {
     font-size: 2rem;
     font-weight: bold;
     color: #ff6f61; /* Pop of bold coral for the logo */
     text-transform: uppercase;
     letter-spacing: 2px;
+    position: relative; /* To allow the pseudo-element to position correctly */
+    display: inline-block; /* To make the width apply to the text */
+}
+
+/* Underline animation */
+header .logo::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;  /* Adjust position of the underline */
+    left: 0;
+    width: 0;  /* Start with zero width */
+    height: 3px; /* Thickness of the underline */
+    background-color: #ff6f61;  /* Color of the underline */
+    animation: drawUnderline 2s ease-in-out forwards; /* Animate once and retain the final state */
+}
+
+/* Keyframes for the underline animation */
+@keyframes drawUnderline {
+    0% {
+        width: 0; /* Start with no underline */
+    }
+    100% {
+        width: 100%; /* End with the underline fully drawn */
+    }
 }
 
 nav ul {
@@ -105,8 +130,46 @@ nav ul li a:hover {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
 
+.featured-heading {
+    font-size: 3.5rem; /* Font size */
+    color: #ffffff; /* White font color */
+    font-weight: 700; /* Bold font */
+    text-shadow: 0px 0px 8px #90EE90; /* Light green glow effect */
+    text-align: center; /* Center the text */
+    text-transform: uppercase; /* Uppercase letters */
+    letter-spacing: 2px; /* Space between letters */
+    padding: 10px 0; /* Padding for spacing */
+    position: relative; /* Enable positioning for the arrow */
+}
+
+/* Thicker Arrow Down */
+.featured-heading::after {
+    content: ""; /* Empty content for custom shape */
+    position: absolute;
+    top: 100%; /* Place the arrow below the heading */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px; /* Width of the arrow body */
+    height: 15px; /* Height of the arrow body */
+    background: #90EE90; /* Color of the arrow */
+    clip-path: polygon(50% 100%, 0 0, 100% 0); /* Create a triangular arrow */
+    animation: arrowBounce 1.5s infinite ease-in-out; /* Add bounce animation */
+}
+
+/* Arrow Bounce Animation */
+@keyframes arrowBounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0); /* Starting position */
+    }
+    50% {
+        transform: translateX(-50%) translateY(10px); /* Move the arrow down */
+    }
+}
+
+
 /* Product Cards */
 .products {
+    padding-top: 20px; /* Adjust this value to suit your design */
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
@@ -244,7 +307,7 @@ footer a:hover {
 #shop_button {
     display: inline-block; /* Make it behave like a button */
     padding: 10px 20px; /* Add padding for size */
-    background-color: #007BFF; /* Button background color */
+    background: linear-gradient(135deg, #00f260, #0575e6); /* Vibrant dual-tone greenish gradient */
     color: #fff; /* Button text color */
     text-align: center; /* Center the text */
     text-decoration: none; /* Remove underline */
@@ -252,5 +315,10 @@ footer a:hover {
     font-size: 16px; /* Text size */
     font-weight: bold; /* Bold text */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
-    transition: background-color 0.3s, transform 0.2s; /* Smooth hover effect */
+    transition: background 0.3s, transform 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+#shop_button:hover {
+    background: linear-gradient(135deg, #0575e6, #00f260); /* Reverse the gradient on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
 }

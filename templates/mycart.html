@@ -10,7 +10,7 @@
 
     <!-- Include AG-Grid CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-quartz-dark.css">
 
     <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
 </head>
@@ -21,9 +21,9 @@
 
     <!-- Display Cart Message -->
     <h4 style="padding-top: 100px" id="cart-message"></h4>
-
+    <br>
     <!-- Grid Container (Initially Hidden) -->
-    <div id="myGrid" style="height: 400px; width: 100%;" class="ag-theme-alpine"></div>
+    <div id="myGrid" style="height: 200px; width: 65%;" class="ag-theme-quartz-dark"></div>
 
 </body>
 
@@ -46,7 +46,7 @@
                 cartMessageElement.textContent = "You have no items in your cart."; // If cart is empty
                 document.getElementById('myGrid').style.display = "none"; // Hide the grid if cart is empty
             } else {
-                cartMessageElement.textContent = ""; // Do nothing if there are items in the cart
+                cartMessageElement.textContent = "Glasses in your cart:"; // Do nothing if there are items in the cart
                 document.getElementById('myGrid').style.display = "block"; // Show the grid if there are items
                 initializeGrid(mycart); // Initialize and populate the grid with data from the cart
             }
@@ -62,11 +62,14 @@
         const gridOptions = {
             rowData: cartItems, // Use cart items as rowData
             columnDefs: [
-                { field: "make" },
-                { field: "model" },
-                { field: "price" },
-                { field: "electric" },
-            ]
+                { field: "name" , headerName: "Product Name", flex: 1 },
+                { field: "price", headerName: "Unit Price", flex: 1 },
+                { field: "quantity", flex: 1 }
+
+            ],
+            rowSelection: {
+                mode: 'multiRow',
+            },
         };
 
         // Create the grid
