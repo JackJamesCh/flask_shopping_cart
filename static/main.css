@@ -397,3 +397,83 @@ footer a:hover {
     }
 }
 
+.checkout-form {
+    background: linear-gradient(to bottom right, #1a1a2e, #16213e);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 65%;
+}
+
+.checkout-form h2 {
+    display: flex;
+    align-items: center; /* Align icon and text vertically */
+    justify-content: center; /* Center content within the title */
+    text-align: center; /* Center text alignment */
+    color: #fff; /* Match form theme */
+    margin-bottom: 20px;
+}
+
+.checkout-form h2 i {
+    color: #fff; /* Match text color */
+    margin-right: 15px; /* Adjust spacing between icon and text */
+}
+
+
+.checkout-form .form-group {
+    margin-bottom: 15px;
+}
+
+.checkout-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.checkout-form .form-group input:focus {
+    border-color: #59f19c;
+    outline: none;
+    box-shadow: 0 0 5px rgba(144, 238, 144, 0.5);
+}
+
+.checkout-form button {
+    width: 100%;
+    padding: 10px;
+    background: #59f19c;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.checkout-form button:hover {
+    background: #006400;;
+}
+
+.checkout-form .form-group-small input {
+    flex: 1;
+}
+
+#clear_cart_button {
+    display: inline-block; /* Make it behave like a button */
+    padding: 10px 20px; /* Add padding for size */
+    background: linear-gradient(135deg, #00f260, #0575e6); /* Vibrant dual-tone greenish gradient */
+    color: #fff; /* Button text color */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Text size */
+    font-weight: bold; /* Bold text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    transition: background 0.3s, transform 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+#clear_cart_button:hover {
+    background: linear-gradient(135deg, #0575e6, #00f260); /* Reverse the gradient on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+}

@@ -24,6 +24,11 @@
     <br>
     <!-- Grid Container (Initially Hidden) -->
     <div id="myGrid" style="height: 200px; width: 65%;" class="ag-theme-quartz-dark"></div>
+    <br>
+    <button id="clear_cart_button">Clear Cart</button>
+    <br>
+    <!-- checkout -->
+    {% include "checkout.html" %}
 
 </body>
 
@@ -46,14 +51,30 @@
                 cartMessageElement.textContent = "You have no items in your cart."; // If cart is empty
                 cartMessageElement.className = "cart-message-sad"; // Apply sad animation class
                 document.getElementById('myGrid').style.display = "none"; // Hide the grid if cart is empty
+                document.getElementById('checkout').style.display = "none"; // hide checkout form
+                document.getElementById('clear_cart_button').style.display = "none";// hide clear cart button
             } else {
                 cartMessageElement.textContent = "Glasses in your cart:";
                 cartMessageElement.className = "cart-message-animated"; // Apply animated class for this case
                 document.getElementById('myGrid').style.display = "block"; // Show the grid if there are items
+                document.getElementById('checkout').style.display = "block"; //show checkout
+                document.getElementById('clear_cart_button').style.display = "block"; //show the clear cart button
                 initializeGrid(mycart); // Initialize and populate the grid with data from the cart
             }
 
+            const clear_cart_button = document.getElementById("clear_cart_button");
+            clear_cart_button.addEventListener("click", (event) => {
+                clearCart();
+            });
 
+            // Get the form element
+            const checkoutForm = document.getElementById('checkout');
+            // Add event listener for form submission
+            checkoutForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting normally
+                alert("Order has been placed!");
+                clearCart();
+            });
 
         } catch (error) {
             // Handle errors
@@ -66,22 +87,39 @@
         const gridOptions = {
             rowData: cartItems, // Use cart items as rowData
             columnDefs: [
-                { field: "name" , headerName: "Product Name", flex: 1 },
-                { field: "price", headerName: "Unit Price", flex: 1 },
-                { field: "quantity", flex: 1 }
+                {field: "name", headerName: "Product Name", flex: 1},
+                {field: "price", headerName: "Unit Price", flex: 1},
+                {field: "quantity", flex: 1}
 
-            ],
-            rowSelection: {
-                mode: 'multiRow',
-            },
+            ]
         };
 
         // Create the grid
         new agGrid.Grid(document.querySelector("#myGrid"), gridOptions);
     }
 
+
     // Call the fetchData function when the page loads
     window.addEventListener("load", fetchData);
+
+    async function clearCart() {
+        const apiUrl = "http://127.0.0.1:5000/api/clear-cart"; // Replace with your add-to-cart API endpoint
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+
+            window.location.reload(); // Reload the current page
+
+        } catch (error) {
+            console.error("Failed to clear cart:", error);
+        }
+    }
 
 </script>
 

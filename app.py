@@ -116,6 +116,19 @@ def add_to_cart():
         return jsonify({"error": str(e)}), 500
 
 
+@app.route('/api/clear-cart', methods=['DELETE'])
+def clear_cart():
+    try:
+        mycart = []
+
+        # Save the updated cart back to the file
+        with open('mycart.json', 'w') as file:
+            json.dump(mycart, file, indent=4)  # Write the updated cart to file
+
+        return jsonify({"message": "Cart cleared successfully"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
