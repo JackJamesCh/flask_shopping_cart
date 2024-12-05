@@ -8,6 +8,10 @@ def home():
     # Render an HTML template called 'index.html'
     return render_template('index.html')
 
+@app.route('/admin_portal')
+def admin_portal():
+    return render_template('admin_portal.html')
+
 @app.route('/shop')
 def shop():
     # Render an HTML template called 'shop'
@@ -22,6 +26,12 @@ def about():
 def mycart():
     # Render an HTML template called 'shop'
     return render_template('mycart.html')
+
+@app.route('/signin')
+def signin():
+    # Render an HTML template called 'index.html'
+    return render_template('signin.html')
+
 
 @app.route('/api/get-products')
 def get_products():
@@ -129,6 +139,38 @@ def clear_cart():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/api/signin', methods=['POST'])
+def api_signin():
+    # Get the email and password from the request
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
+    # Load the users from the users.json file
+    try:
+        with open('users.json', 'r') as file:
+            users = json.load(file)  # Parse the JSON file into a Python object
+
+        user = None  # Initialize the user variable as None
+
+        # Loop through all users in the list
+        for u in users:
+            # Check if both the email and password match
+            if u['email'] == email and u['password'] == password:
+                user = u  # Assign the matching user to the user variable
+                break  # Exit the loop as we've found the matching user
+
+        if user is not None:
+            return jsonify({"message": "Login successful"}), 200  # Successful login
+        else:
+            return jsonify({"error": "Invalid credentials"}), 404  # Invalid login credentials
+
+    except FileNotFoundError:
+        return jsonify({"error": "Users file not found"}), 404
+    except json.JSONDecodeError:
+        return jsonify({"error": "Error decoding JSON"}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
