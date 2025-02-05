@@ -14,12 +14,12 @@
     {% include "navbar.html" %}
 
     <!-- Products Section -->
-     <section class="products">
+     <section>
         <h1>Explore Our Collection</h1>
         <p>Discover the perfect frames to complement your style.</p>
-
-        <div class="products" id="products">
-        </div>
+        <!-- Sort by Price Button -->
+        <button id="sortByPriceBtn">Sort by Price</button>
+        <div class="products" id="products"></div>
     </section>
 
     <!-- Footer -->
@@ -29,6 +29,9 @@
 </body>
 
 <script type="text/javascript">
+    let products = [];  // To store fetched products
+    let pricesortingAscending = false;
+
     // Function to fetch data from an API
     async function fetchData() {
         const apiUrl = "http://127.0.0.1:5000/api/get-products"; // Replace with your API endpoint
@@ -43,7 +46,7 @@
             }
 
             // Wait for the JSON data to resolve
-            const products = await response.json();
+            products = await response.json();
 
             // Ensure products is an array
             if (!Array.isArray(products)) {
@@ -51,40 +54,83 @@
             }
 
             // Inject the product cards into the page
-            const productContainer = document.querySelector(".products"); // Adjust to match container's class or ID
-            productContainer.innerHTML = ""; // Clear existing products
-
-            products.forEach((product) => {
-                // Create product card dynamically
-                const productCard = document.createElement("div");
-                productCard.classList.add("product-card");
-
-                productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}">
-                    <div class="info">
-                        <h3>${product.name}</h3>
-                        <p>$${product.price}</p>
-                        <button class="add-to-cart" data-product='${JSON.stringify(product)}'>Add to Cart</button>
-                    </div>
-                `;
-
-                productContainer.appendChild(productCard);
-            });
-
-            // Add event listeners for the "Add to Cart" buttons
-            const cartButtons = document.querySelectorAll(".add-to-cart");
-            cartButtons.forEach((button) => {
-                button.addEventListener("click", (event) => {
-                    const productData = JSON.parse(event.target.dataset.product);
-                    addToCart(productData);
-                });
-            });
+            displayProducts(products);
 
         } catch (error) {
             // Handle errors
             console.error("Failed to fetch API data:", error);
         }
     }
+
+    // Function to display products in the container
+    function displayProducts(productsToDisplay) {
+        const productContainer = document.querySelector(".products"); // Adjust to match container's class or ID
+        productContainer.innerHTML = ""; // Clear existing products
+
+        productsToDisplay.forEach((product) => {
+            // Create product card dynamically
+            const productCard = document.createElement("div");
+            productCard.classList.add("product-card");
+
+            productCard.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <div class="info">
+                    <h3>${product.name}</h3>
+                    <p>$${product.price}</p>
+                    <button class="add-to-cart" data-product='${JSON.stringify(product)}'>Add to Cart</button>
+                </div>
+            `;
+
+            productContainer.appendChild(productCard);
+        });
+
+        // Add event listeners for the "Add to Cart" buttons
+        const cartButtons = document.querySelectorAll(".add-to-cart");
+        cartButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                const productData = JSON.parse(event.target.dataset.product);
+                addToCart(productData);
+            });
+        });
+    }
+
+    document.getElementById("sortByPriceBtn").addEventListener("click", function() {
+    const button = this;
+
+    // Toggle the gradient colors on each click
+    if (button.style.background === 'linear-gradient(45deg, rgb(168, 224, 99), rgb(255, 107, 107))') {
+        // Reverse the gradient (Red on the left, Green on the right)
+        button.style.background = 'linear-gradient(45deg, #ff6b6b, #a8e063)';
+    } else {
+        // Original gradient (Green on the left, Red on the right)
+        button.style.background = 'linear-gradient(45deg, #a8e063, #ff6b6b)';
+    }
+});
+
+    // Function to sort products by price (ascending or descending)
+    function sortProductsByPrice() {
+        const sortedProducts = [...products]; // Copy the products array to not mutate the original
+
+        //toggle the value of sorting
+
+        pricesortingAscending = !pricesortingAscending;
+
+        if (pricesortingAscending === true) {
+            // Toggle the sorting order (ascending vs descending)
+            sortedProducts.sort((a, b) => a.price - b.price); // Ascending price order
+        } else {
+            // Sort by price in descending order
+            sortedProducts.sort((a, b) => b.price - a.price); // Descending price order
+        }
+
+        // Display sorted products
+        displayProducts(sortedProducts);
+    }
+
+    // Event listener for the "Sort by Price" button
+    document.getElementById("sortByPriceBtn").addEventListener("click", function() {
+        sortProductsByPrice(); // Call the sorting function when the button is clicked
+    });
 
     // Call the fetchData function when the page loads
     window.addEventListener("load", fetchData);

@@ -1,14 +1,1 @@
-[
-    {
-        "featured": true,
-        "image": "/static/images/glasses2.png",
-        "name": "Elegant Sunglass",
-        "price": 129
-    },
-    {
-        "featured": true,
-        "image": "/static/images/glasses3.png",
-        "name": "Trendy Frame",
-        "price": 89
-    }
-]
+[]

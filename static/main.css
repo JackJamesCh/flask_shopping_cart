@@ -475,3 +475,127 @@ footer a:hover {
     background: linear-gradient(135deg, #0575e6, #00f260); /* Reverse the gradient on hover */
     transform: scale(1.5); /* enlarge the button */
 }
+
+.delete-btn {
+    background-color: #e74c3c;  /* Red background */
+    color: white;               /* White text */
+    border: none;               /* Remove border */
+    padding: 8px 20px;          /* Add more horizontal padding for width */
+    font-size: 14px;            /* Adjust font size */
+    font-weight: bold;          /* Make text bold */
+    border-radius: 4px;         /* Round corners */
+    cursor: pointer;           /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover effect */
+    min-width: 120px;           /* Set a minimum width to ensure it's wide enough */
+    text-align: center;         /* Center the text inside the button */
+}
+
+/* Hover effect for the button */
+.delete-btn:hover {
+    background-color: #c0392b;  /* Darker red on hover */
+    transform: scale(1.05);      /* Slightly enlarge the button */
+}
+
+/* Focus effect for accessibility */
+.delete-btn:focus {
+    outline: none;              /* Remove outline on focus */
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.5); /* Add custom focus ring */
+}
+
+#saveChanges {
+    background-color: #f39c12;  /* Dark yellow background */
+    color: black;               /* Black text */
+    border: none;               /* Remove border */
+    padding: 10px 20px;         /* Add padding to make the button more prominent */
+    font-size: 16px;            /* Adjust font size */
+    font-weight: bold;          /* Make the text bold */
+    border-radius: 5px;         /* Round corners */
+    cursor: pointer;           /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover effect */
+    min-width: 150px;           /* Set a minimum width to make sure the button has a decent size */
+    text-align: center;         /* Center the text inside the button */
+}
+
+/* Hover effect with tone change */
+#saveChanges:hover {
+    background-color: #e67e22;  /* Shift to a more orange tone */
+    transform: scale(1.05);      /* Slightly enlarge the button */
+    filter: brightness(1.2);     /* Increase brightness for a glowing effect */
+}
+
+/* Focus effect for accessibility */
+#saveChanges:focus {
+    outline: none;              /* Remove outline on focus */
+    box-shadow: 0 0 0 2px rgba(243, 156, 18, 0.5); /* Add a soft orange outline when focused */
+}
+
+/* Add space between the navbar and the section */
+section {
+    margin-top: 100px; /* Adjust as needed for the space between navbar and content */
+}
+
+/* Center the heading and paragraph text */
+section h1, section p {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    opacity: 0; /* Initially invisible */
+    transform: translateX(-50px); /* Start from the left */
+    animation: fadeInFromLeft 2s forwards; /* Apply animation */
+}
+
+/* Subtle white neon glow effect for the heading */
+section h1 {
+    font-size: 3rem;
+    color: #ffffff;
+    text-shadow: 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 4px rgba(255, 255, 255, 0.3);
+    margin-bottom: 30px; /* Adjust space from the paragraph */
+}
+
+/* Subtle neon glow effect for the paragraph */
+section p {
+    font-size: 1.5rem;
+    color: #ffffff;
+    text-shadow: 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 4px rgba(255, 255, 255, 0.3);
+    margin-bottom: 30px;
+}
+
+/* Keyframes for fade-in-from-left animation */
+@keyframes fadeInFromLeft {
+    0% {
+        opacity: 0; /* Start as invisible */
+        transform: translateX(-50px); /* Start from left */
+    }
+    100% {
+        opacity: 1; /* End as fully visible */
+        transform: translateX(0); /* End at normal position */
+    }
+}
+
+
+/* Initial button style with green on the left and red on the right */
+#sortByPriceBtn {
+    background: linear-gradient(45deg, #a8e063, #ff6b6b); /* Green to Red gradient */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold; /* Make the button text bold */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Hover effect: darken the button when cursor is on top */
+#sortByPriceBtn:hover {
+    background: linear-gradient(45deg, #8fbd45, #e55d5d); /* Darker green and red */
+    transform: scale(1.05); /* Slight scale up for effect */
+}
+
+/* Optional: Focus effect (for accessibility) */
+#sortByPriceBtn:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Add glow on focus */
+}
+

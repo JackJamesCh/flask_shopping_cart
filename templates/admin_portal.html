@@ -14,7 +14,7 @@
 <body>
     {% include "navbar.html" %}
 
-    <div id="myGrid" style="height: 600px; width: 65%; padding-top: 100px;" class="ag-theme-quartz-dark"></div>
+    <div id="myGrid" style="height: 500px; width: 65%; padding-top: 100px;" class="ag-theme-quartz-dark"></div>
     <button id="saveChanges" style="margin-top: 10px;">Save Changes</button>
 
 <script type="text/javascript">
@@ -35,10 +35,14 @@
                         cellRenderer: (params) => {
                             const button = document.createElement("button");
                             button.innerText = "🗑 Delete";
-                            button.style.color = "red";
+
+                            // Add a class for styling
+                            button.classList.add('delete-btn');
+
                             button.onclick = () => confirmDelete(params.node.data);
                             return button;
                         },
+
                         flex: 1
                     }
                 ],
