@@ -3,61 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <title>Glasses Shop</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> <!-- Link to CSS -->
-    <!-- Include Google Fonts -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Include AG-Grid CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-quartz-dark.css">
-    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+
+    <!-- Updated AG-Grid Links -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.1/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.1/styles/ag-theme-quartz-dark.css">
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.1/dist/ag-grid-community.min.js"></script>
 </head>
 <body>
     {% include "navbar.html" %}
 
-    <!-- Grid Container -->
     <div id="myGrid" style="height: 600px; width: 65%; padding-top: 100px;" class="ag-theme-quartz-dark"></div>
+    <button id="saveChanges" style="margin-top: 10px;">Save Changes</button>
 
 <script type="text/javascript">
-    // Function to initialize and display the grid
-    function initializeGrid(products) {
-        const gridOptions = {
-            rowData: products, // Use cart items as rowData
-            columnDefs: [
-                {field: "name", headerName: "Product Name", flex: 1},
-                {field: "price", headerName: "Unit Price", flex: 1}
-            ]
-        };
+    let gridOptions;
+    let originalData = [];
 
-        // Create the grid
-        new agGrid.Grid(document.querySelector("#myGrid"), gridOptions);
+    function initializeGrid(products) {
+        if (typeof agGrid !== "undefined" && agGrid.Grid) {
+            gridOptions = {
+                rowData: products,
+                columnDefs: [
+                    { field: "name", headerName: "Product Name", flex: 1 },
+                    { field: "price", headerName: "Unit Price", flex: 1, editable: true},
+                    { field: "featured", headerName: "Is Featured?", flex: 1, editable: true}
+                ],
+                onGridReady: function () {
+                    // Store original data after grid is ready
+                    originalData = JSON.parse(JSON.stringify(products)); // Deep copy
+                }
+            };
+            new agGrid.Grid(document.querySelector("#myGrid"), gridOptions);
+        } else {
+            console.error("AG Grid failed to load.");
+        }
     }
 
     async function fetchData() {
-        const apiUrl = "http://127.0.0.1:5000/api/get-products";
-
         try {
-            const response = await fetch(apiUrl);
-
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status} - ${response.statusText}`);
-            }
-
+            const response = await fetch("http://127.0.0.1:5000/api/get-products");
+            if (!response.ok) throw new Error(`Error: ${response.status}`);
             const products = await response.json();
 
-            if (products && products.length === 0) {
-                document.getElementById('myGrid').style.display = "none"; // Hide the grid if cart is empty
-            } else {
-                document.getElementById('myGrid').style.display = "block"; // Show the grid if there are items
-                initializeGrid(products); // Initialize and populate the grid with data from the cart
-            }
-
+            document.getElementById('myGrid').style.display = products.length ? "block" : "none";
+            initializeGrid(products);
         } catch (error) {
-            // Handle errors
             console.error("Failed to fetch API data:", error);
         }
     }
 
-    window.addEventListener("load", fetchData);
+    document.getElementById("saveChanges").addEventListener("click", async function () {
+        let updatedData = [];
+
+        // Loop through all rows and compare current data with original data
+        gridOptions.api.forEachNode((node) => {
+            const originalRow = originalData.find(item => item.name === node.data.name);
+
+            // Check if any field has changed (price, featured)
+            let isUpdated = false;
+            if (originalRow.price !== node.data.price) isUpdated = true;
+            if (originalRow.featured !== node.data.featured) isUpdated = true;
+
+            // Only push data that has changed
+            if (isUpdated) {
+                updatedData.push(node.data);
+            }
+        });
+        console.log("Saving updated data:", updatedData);
+
+        try {
+            const response = await fetch("http://127.0.0.1:5000/api/update-products", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ products: updatedData })
+            });
+
+            const result = await response.json();
+            alert(result.message || "Products updated successfully!");
+            window.location.reload();
+
+        } catch (error) {
+            console.error("Failed to save changes:", error);
+            alert("Error updating products!");
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", fetchData);
 </script>
 </body>
 </html>

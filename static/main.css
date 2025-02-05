@@ -7,8 +7,8 @@
 }
 
 body {
-    background: linear-gradient(to bottom right, #1a1a2e, #16213e); /* Bold, deep gradient background */
-    color: #ffffff; /* Light text for contrast */
+    background: linear-gradient(to bottom right, #1a1a2e, #16213e);
+    color: #ffffff;
     font-size: 16px;
     line-height: 1.6;
     display: flex;
@@ -17,9 +17,8 @@ body {
     min-height: 100vh;
 }
 
-/* Header */
 header {
-    background: linear-gradient(to right, #6a11cb, #2575fc); /* Vibrant gradient */
+    background: linear-gradient(to right, #6a11cb, #2575fc);
     padding: 15px 40px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     position: fixed;
@@ -35,32 +34,32 @@ header {
 header .logo {
     font-size: 2rem;
     font-weight: bold;
-    color: #ff6f61; /* Pop of bold coral for the logo */
+    color: #ff6f61;
     text-transform: uppercase;
     letter-spacing: 2px;
-    position: relative; /* To allow the pseudo-element to position correctly */
-    display: inline-block; /* To make the width apply to the text */
+    position: relative;
+    display: inline-block;
 }
 
 /* Underline animation */
 header .logo::after {
     content: "";
     position: absolute;
-    bottom: -5px;  /* Adjust position of the underline */
+    bottom: -5px;
     left: 0;
-    width: 0;  /* Start with zero width */
-    height: 3px; /* Thickness of the underline */
-    background-color: #ff6f61;  /* Color of the underline */
+    width: 0;
+    height: 5px; /* Thickness of the underline */
+    background-color: #ff6f61;
     animation: drawUnderline 1s ease-in-out forwards; /* Animate once and retain the final state */
 }
 
 /* Keyframes for the underline animation */
 @keyframes drawUnderline {
     0% {
-        width: 0; /* Start with no underline */
+        width: 0;
     }
     100% {
-        width: 100%; /* End with the underline fully drawn */
+        width: 100%;
     }
 }
 
@@ -88,7 +87,7 @@ nav ul li a:hover {
     margin-top: 100px;
     padding: 60px 20px;
     text-align: center;
-    background: linear-gradient(135deg, #ff0099, #493240); /* Eye-catching gradient */
+    background: linear-gradient(135deg, #ff0099, #493240);
     border-radius: 15px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     max-width: 1200px;
@@ -106,14 +105,14 @@ nav ul li a:hover {
 .hero p {
     margin: 20px 0;
     font-size: 1.3rem;
-    color: #ffddc1; /* Warm accent color for text */
+    color: #ffddc1;
     line-height: 1.8;
 }
 
 .hero button {
     margin-top: 30px;
     padding: 15px 40px;
-    background: linear-gradient(to right, #00f260, #0575e6); /* Bright teal gradient */
+    background: linear-gradient(to right, #00f260, #0575e6);
     color: white;
     border: none;
     border-radius: 50px;
@@ -131,27 +130,27 @@ nav ul li a:hover {
 }
 
 .featured-heading {
-    font-size: 3.5rem; /* Font size */
-    color: #ffffff; /* White font color */
-    font-weight: 700; /* Bold font */
-    text-shadow: 0px 0px 8px #90EE90; /* Light green glow effect */
-    text-align: center; /* Center the text */
-    text-transform: uppercase; /* Uppercase letters */
-    letter-spacing: 2px; /* Space between letters */
-    padding: 10px 0; /* Padding for spacing */
-    position: relative; /* Enable positioning for the arrow */
+    font-size: 3.5rem;
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 0px 0px 8px #90EE90;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 10px 0;
+    position: relative;
 }
 
-/* Thicker Arrow Down */
+/* Thick Arrow Down */
 .featured-heading::after {
-    content: ""; /* Empty content for custom shape */
+    content: "";
     position: absolute;
-    top: 100%; /* Place the arrow below the heading */
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
     width: 15px; /* Width of the arrow body */
     height: 15px; /* Height of the arrow body */
-    background: #90EE90; /* Color of the arrow */
+    background: #90EE90;
     clip-path: polygon(50% 100%, 0 0, 100% 0); /* Create a triangular arrow */
     animation: arrowBounce 1.5s infinite ease-in-out; /* Add bounce animation */
 }
@@ -169,7 +168,7 @@ nav ul li a:hover {
 
 /* Product Cards */
 .products {
-    padding-top: 20px; /* Adjust this value to suit your design */
+    padding-top: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
@@ -179,7 +178,7 @@ nav ul li a:hover {
 }
 
 .product-card {
-    background: linear-gradient(135deg, #1e3c72, #2a5298); /* Bold gradient for cards */
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     overflow: hidden;
@@ -212,13 +211,13 @@ nav ul li a:hover {
 
 .product-card .info p {
     font-size: 1.1rem;
-    color: #b3c7d6; /* Cool gray for description */
+    color: #b3c7d6;
     margin-bottom: 15px;
 }
 
 .product-card .info button {
     padding: 10px 30px;
-    background: linear-gradient(to right, #ff416c, #ff4b2b); /* Warm red gradient */
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
     color: white;
     border: none;
     border-radius: 30px;
@@ -250,7 +249,7 @@ footer p {
 }
 
 footer a {
-    color: #ff6f61; /* Coral link color */
+    color: #ff6f61;
     text-decoration: none;
     transition: color 0.3s ease-in-out;
 }
@@ -288,7 +287,7 @@ footer a:hover {
 
 .about-section {
     padding: 120px 20px 20px;
-    background: linear-gradient(135deg, #ff6f61, #ff9a8b); /* Vivid gradient for About section */
+    background: linear-gradient(135deg, #ff6f61, #ff9a8b);
     text-align: center;
 }
 
@@ -305,16 +304,16 @@ footer a:hover {
 }
 
 #shop_button {
-    display: inline-block; /* Make it behave like a button */
-    padding: 10px 20px; /* Add padding for size */
-    background: linear-gradient(135deg, #00f260, #0575e6); /* Vibrant dual-tone greenish gradient */
-    color: #fff; /* Button text color */
-    text-align: center; /* Center the text */
-    text-decoration: none; /* Remove underline */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Text size */
-    font-weight: bold; /* Bold text */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #00f260, #0575e6);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /*shadow for depth */
     transition: background 0.3s, transform 0.2s ease-in-out; /* Smooth hover effect */
 }
 
@@ -325,26 +324,26 @@ footer a:hover {
 
 /* Style for the cart message text */
 .cart-message-animated {
-    font-size: 1.5rem; /* Adjust text size */
-    color: #59f19c; /* Set the text color */
-    font-weight: 600; /* Make the text semi-bold */
-    text-align: center; /* Center the text */
-    text-transform: uppercase; /* Optional: Uppercase text */
-    letter-spacing: 1px; /* Space out the letters slightly */
-    position: relative; /* Required for pseudo-element positioning */
+    font-size: 1.5rem;
+    color: #59f19c;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
     animation: fadeInUnderline 1s ease-in-out forwards; /* Trigger the underline animation */
 }
 
 /* Underline effect animation */
 .cart-message-animated::after {
-    content: ""; /* Empty content for the underline */
+    content: "";
     position: absolute;
-    left: 50%; /* Start in the center */
-    bottom: -5px; /* Adjust position below the text */
-    width: 0; /* Initially no underline */
-    height: 3px; /* Thickness of the underline */
-    background-color: #59f19c; /* Underline color */
-    transform: translateX(-50%); /* Center the underline */
+    left: 50%;
+    bottom: -5px;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #00f260, #0575e6);
+    transform: translateX(-50%);
     animation: drawUnderline 1s ease-in-out forwards; /* Run the underline animation */
 }
 
@@ -371,12 +370,12 @@ footer a:hover {
 }
 
 .cart-message-sad {
-    font-size: 1.5rem; /* Adjust text size */
-    color: #ff758c; /* Set the text color */
-    font-weight: 600; /* Make the text semi-bold */
-    text-align: center; /* Center the text */
-    text-transform: uppercase; /* Optional: Uppercase text */
-    letter-spacing: 1px; /* Slightly space out letters */
+    font-size: 1.5rem;
+    color: #ff758c;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px; /
     position: relative; /* Required for animation */
     animation: sadDrop 1.5s ease-in-out forwards; /* Apply the sad drop animation */
 }
@@ -410,12 +409,12 @@ footer a:hover {
     align-items: center; /* Align icon and text vertically */
     justify-content: center; /* Center content within the title */
     text-align: center; /* Center text alignment */
-    color: #fff; /* Match form theme */
+    color: #fff;
     margin-bottom: 20px;
 }
 
 .checkout-form h2 i {
-    color: #fff; /* Match text color */
+    color: #fff;
     margin-right: 15px; /* Adjust spacing between icon and text */
 }
 
@@ -462,18 +461,17 @@ footer a:hover {
 #clear_cart_button {
     display: inline-block; /* Make it behave like a button */
     padding: 10px 20px; /* Add padding for size */
-    background: linear-gradient(135deg, #00f260, #0575e6); /* Vibrant dual-tone greenish gradient */
+    background: linear-gradient(135deg, #00f260, #0575e6);
     color: #fff; /* Button text color */
-    text-align: center; /* Center the text */
-    text-decoration: none; /* Remove underline */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Text size */
-    font-weight: bold; /* Bold text */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    text-align: center;
+    border-radius: 10px; /* Rounded corners */
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* shadow for depth */
     transition: background 0.3s, transform 0.2s ease-in-out; /* Smooth hover effect */
 }
 
 #clear_cart_button:hover {
     background: linear-gradient(135deg, #0575e6, #00f260); /* Reverse the gradient on hover */
-    transform: scale(1.05); /* Slightly enlarge the button */
+    transform: scale(1.5); /* enlarge the button */
 }

@@ -1,8 +1,13 @@
 from flask import Flask, render_template, jsonify, request
+from dao.ProductDao import ProductDao
+from dao.UserDao import UserDao
+from model.Product import Product
 import json
 
 app = Flask(__name__)
 
+productDao = ProductDao()
+userDao = UserDao()
 @app.route('/')
 def home():
     # Render an HTML template called 'index.html'
@@ -19,48 +24,51 @@ def shop():
 
 @app.route('/about')
 def about():
-    # Render an HTML template called 'shop'
+    # Render an HTML template called 'about'
     return render_template('about.html')
 
 @app.route('/mycart')
 def mycart():
-    # Render an HTML template called 'shop'
+    # Render an HTML template called 'my cart'
     return render_template('mycart.html')
 
 @app.route('/signin')
 def signin():
-    # Render an HTML template called 'index.html'
+    # Render an HTML template called 'signin.html'
     return render_template('signin.html')
 
 
 @app.route('/api/get-products')
 def get_products():
+
+    return jsonify(productDao.get_all_products())
     # Load data from products.json
-    try:
-        with open('products.json', 'r') as file:
-            products = json.load(file)  # Parse the JSON file into a Python object
-        return jsonify(products)  # Return the data as a JSON response
-    except FileNotFoundError:
-        return jsonify({"error": "File not found"}), 404
-    except json.JSONDecodeError:
-        return jsonify({"error": "Error decoding JSON"}), 500
+    #try:
+        #with open('products.json', 'r') as file:
+           # products = json.load(file)  # Parse the JSON file into a Python object
+       # return jsonify(products)  # Return the data as a JSON response
+    #except FileNotFoundError:
+       # return jsonify({"error": "File not found"}), 404
+  #  except json.JSONDecodeError:
+        #return jsonify({"error": "Error decoding JSON"}), 500
 
 @app.route('/api/get-featured-products')
 def get_featured_products():
-    # Load data from products.json
-    try:
-        with open('products.json', 'r') as file:
-            products = json.load(file)  # Parse the JSON file into a Python object
-
-        # Filter products to get only featured products
-        featured_products = [product for product in products if product.get('featured')]
-
-        return jsonify(featured_products)  # Return the featured products as a JSON response
-
-    except FileNotFoundError:
-        return jsonify({"error": "File not found"}), 404
-    except json.JSONDecodeError:
-        return jsonify({"error": "Error decoding JSON"}), 500
+    return jsonify(productDao.get_all_featured_products())
+    # # Load data from products.json
+    # try:
+    #     with open('products.json', 'r') as file:
+    #         products = json.load(file)  # Parse the JSON file into a Python object
+    #
+    #     # Filter products to get only featured products
+    #     featured_products = [product for product in products if product.get('featured')]
+    #
+    #     return jsonify(featured_products)  # Return the featured products as a JSON response
+    #
+    # except FileNotFoundError:
+    #     return jsonify({"error": "File not found"}), 404
+    # except json.JSONDecodeError:
+    #     return jsonify({"error": "Error decoding JSON"}), 500
 
 
 @app.route('/api/get-mycart')
@@ -147,29 +155,60 @@ def api_signin():
     email = data.get("email")
     password = data.get("password")
 
-    # Load the users from the users.json file
-    try:
-        with open('users.json', 'r') as file:
-            users = json.load(file)  # Parse the JSON file into a Python object
-
-        user = None  # Initialize the user variable as None
-
-        # Loop through all users in the list
-        for u in users:
-            # Check if both the email and password match
-            if u['email'] == email and u['password'] == password:
-                user = u  # Assign the matching user to the user variable
-                break  # Exit the loop as we've found the matching user
-
-        if user is not None:
+    user = (userDao.get_user_by_email_password(email, password))
+    print(user)
+    if user is not None:
+        if user['is_admin']:
             return jsonify({"message": "Login successful"}), 200  # Successful login
         else:
-            return jsonify({"error": "Invalid credentials"}), 404  # Invalid login credentials
+            return jsonify({"error": "User is not an Admin!"}), 401
+    else:
+        return jsonify({"error": "Invalid credentials"}), 404  # Invalid login credentials
 
-    except FileNotFoundError:
-        return jsonify({"error": "Users file not found"}), 404
-    except json.JSONDecodeError:
-        return jsonify({"error": "Error decoding JSON"}), 500
+    # # Load the users from the users.json file
+    # try:
+    #     with open('users.json', 'r') as file:
+    #         users = json.load(file)  # Parse the JSON file into a Python object
+    #
+    #     user = None  # Initialize the user variable as None
+    #
+    #     # Loop through all users in the list
+    #     for u in users:
+    #         # Check if both the email and password match
+    #         if u['email'] == email and u['password'] == password:
+    #             user = u  # Assign the matching user to the user variable
+    #             break  # Exit the loop as we've found the matching user
+    #
+    #     if user is not None:
+    #         return jsonify({"message": "Login successful"}), 200  # Successful login
+    #     else:
+    #         return jsonify({"error": "Invalid credentials"}), 404  # Invalid login credentials
+    #
+    # except FileNotFoundError:
+    #     return jsonify({"error": "Users file not found"}), 404
+    # except json.JSONDecodeError:
+    #     return jsonify({"error": "Error decoding JSON"}), 500
+
+@app.route('/api/update-products', methods=['POST'])
+def update_products():
+    """API endpoint to update multiple products."""
+    data = request.get_json()
+    products = data.get("products", [])
+
+    updated_count = 0
+
+    for product_data in products:
+        product = Product(
+            name=product_data["name"],
+            price=product_data["price"],
+            image=product_data.get("image", ""),  # Ensure image is handled if needed
+            featured=bool(product_data["featured"])
+        )
+
+        productDao.update_product(product)
+        updated_count += 1
+
+    return jsonify({"message": f"Updated {updated_count} products successfully!"}), 200
 
 
 if __name__ == '__main__':

@@ -49,13 +49,15 @@
                     body: JSON.stringify(formData)
                 });
 
+                const data = await response.json();
+
                 // Handle response
                 if (response.ok) {
                     // If sign-in is successful
                     window.location.href = '/admin_portal';
                 } else {
                     // If sign-in fails
-                    alert("Invalid email or password. Please try again.");
+                    alert(data.error);
                 }
             } catch (error) {
                 console.error("Error signing in:", error);

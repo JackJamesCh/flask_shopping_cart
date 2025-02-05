@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "featured": true,
+        "image": "/static/images/glasses2.png",
+        "name": "Elegant Sunglass",
+        "price": 129
+    }
+]
