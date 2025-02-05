@@ -211,5 +211,14 @@ def update_products():
     return jsonify({"message": f"Updated {updated_count} products successfully!"}), 200
 
 
+@app.route('/api/delete-product', methods=['POST'])
+def delete_product():
+    """API endpoint to update multiple products."""
+    data = request.get_json()
+    productName = data.get("productName", "")
+    productDao.delete_product(productName)
+
+    return jsonify({"message": f"Deleted {productName} successfully!"}), 200
+
 if __name__ == '__main__':
     app.run(debug=True)

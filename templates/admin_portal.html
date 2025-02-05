@@ -20,6 +20,7 @@
 <script type="text/javascript">
     let gridOptions;
     let originalData = [];
+    let productToDelete = "";
 
     function initializeGrid(products) {
         if (typeof agGrid !== "undefined" && agGrid.Grid) {
@@ -28,7 +29,18 @@
                 columnDefs: [
                     { field: "name", headerName: "Product Name", flex: 1 },
                     { field: "price", headerName: "Unit Price", flex: 1, editable: true},
-                    { field: "featured", headerName: "Is Featured?", flex: 1, editable: true}
+                    { field: "featured", headerName: "Is Featured?", flex: 1, editable: true},
+                    {
+                        headerName: "Delete",
+                        cellRenderer: (params) => {
+                            const button = document.createElement("button");
+                            button.innerText = "🗑 Delete";
+                            button.style.color = "red";
+                            button.onclick = () => confirmDelete(params.node.data);
+                            return button;
+                        },
+                        flex: 1
+                    }
                 ],
                 onGridReady: function () {
                     // Store original data after grid is ready
@@ -38,6 +50,17 @@
             new agGrid.Grid(document.querySelector("#myGrid"), gridOptions);
         } else {
             console.error("AG Grid failed to load.");
+        }
+    }
+
+    function confirmDelete(product) {
+        const productName = product.name;
+
+        // Show a confirmation dialog
+        const confirmMessage = `Are you sure you want to delete "${productName}"?`;
+        if (confirm(confirmMessage)) {
+            // If user confirms deletion, trigger the delete function
+            deleteProduct(product);
         }
     }
 
@@ -51,6 +74,29 @@
             initializeGrid(products);
         } catch (error) {
             console.error("Failed to fetch API data:", error);
+        }
+    }
+
+    async function deleteProduct(product) {
+        // Store the deleted row data
+        productToDelete = product.name;
+
+       try {
+            const response = await fetch("http://127.0.0.1:5000/api/delete-product", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ productName: productToDelete })
+            });
+
+            const result = await response.json();
+            alert(result.message || "Products deleted successfully!");
+            window.location.reload();
+
+        } catch (error) {
+            console.error("Failed to save changes:", error);
+            alert("Error updating products!");
         }
     }
 
