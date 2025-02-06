@@ -3,11 +3,17 @@ from dao.ProductDao import ProductDao
 from dao.UserDao import UserDao
 from model.Product import Product
 import json
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
 productDao = ProductDao()
 userDao = UserDao()
+
+# Ensure this folder exists
+UPLOAD_FOLDER = os.path.join('static', 'images')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 @app.route('/')
 def home():
     # Render an HTML template called 'index.html'
@@ -216,9 +222,59 @@ def delete_product():
     """API endpoint to update multiple products."""
     data = request.get_json()
     productName = data.get("productName", "")
+
+    # Fetch the product from the database to get the image path
+    product = productDao.get_product_by_name(productName)
+
+    if not product:
+        return jsonify({"message": f"Product {productName} not found!"}), 404
+
+    # Delete the image file from static/images if it exists
+    image_path = product.image
+    if os.path.exists(image_path):
+        os.remove(image_path)
+
     productDao.delete_product(productName)
 
     return jsonify({"message": f"Deleted {productName} successfully!"}), 200
+
+
+@app.route('/api/add-product', methods=['POST'])
+def add_product():
+    """API endpoint to add a single product with an image."""
+    # Check if the request contains the necessary parts (form data and files)
+    if 'image' not in request.files:
+        return jsonify({"message": "No image file part"}), 400
+
+    # Get form data
+    name = request.form.get('name')
+    price = request.form.get('price')
+    featured = request.form.get('featured', False)  # Default to False if not provided
+    image = request.files['image']
+
+    if not name or not price:
+        return jsonify({"message": "Name and price are required"}), 400
+
+    # Handle image upload (save to static/images)
+    filename = secure_filename(image.filename)
+    image_path = os.path.join(UPLOAD_FOLDER, filename)
+
+    # Save the image to the static/images folder
+    image.save(image_path)
+
+    # Create a product object
+    product = Product(
+        name=name,
+        price=float(price),  # Assuming price is a number and needs conversion
+        image=image_path,  # Store the path to the image
+        featured=bool(featured)
+    )
+
+    # Add the product using your DAO
+    productDao.add_product(product)
+
+    return jsonify({"message": "Product added successfully!"}), 201
+
 
 if __name__ == '__main__':
     app.run(debug=True)

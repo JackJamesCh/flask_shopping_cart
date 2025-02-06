@@ -82,3 +82,18 @@ class ProductDao:
         cursor.execute("DELETE FROM products WHERE name = ?", (product_name,))
         conn.commit()
         conn.close()
+
+    def add_product(self, product):
+        """Add a product to the database."""
+        conn = self._connect()
+        cursor = conn.cursor()
+
+        # Prepare the SQL insert statement
+        cursor.execute("""
+            INSERT INTO products (name, price, image, featured)
+            VALUES (?, ?, ?, ?)
+        """, (product.name, product.price, product.image, product.featured))
+
+        # Commit the transaction and close the connection
+        conn.commit()
+        conn.close()

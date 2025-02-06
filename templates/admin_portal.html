@@ -14,6 +14,22 @@
 <body>
     {% include "navbar.html" %}
 
+    <div id="addProductForm" style="padding-top: 100px;">
+        <h3>Add New Product</h3>
+        <input type="text" id="newProductName" placeholder="Product Name" required>
+        <input type="number" id="newProductPrice" placeholder="Unit Price" required>
+        <input type="file" id="newProductImage" accept="image/*" required>
+        <img id="imagePreview" src="" style="display:none; width: 100px; height: 100px; margin-top: 10px; object-fit: cover;">
+        <label>
+            Featured:
+            <select id="newProductFeatured">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </label>
+        <button id="addProductButton">Add Product</button>
+    </div>
+
     <div id="myGrid" style="height: 500px; width: 65%; padding-top: 100px;" class="ag-theme-quartz-dark"></div>
     <button id="saveChanges" style="margin-top: 10px;">Save Changes</button>
 
@@ -36,8 +52,11 @@
                     flex: 1,
                     cellRenderer: (params) => {
                         if (params.value) {
-                            return `<img src="${params.value}" alt="Product Image"
-                                        style="width: 50px; height: 50px; border-radius: 5px; object-fit: cover;">`;
+                            return `
+                                <a href="${params.value}" target="_blank">
+                                    <img src="${params.value}" alt="Product Image"
+                                        style="width: 50px; height: 50px; border-radius: 5px; object-fit: cover; cursor: pointer;">
+                                </a>`;
                         }
                         return "";
                     }
@@ -154,6 +173,40 @@
         }
     });
 
+    document.getElementById("newProductImage").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("imagePreview").src = e.target.result;
+                document.getElementById("imagePreview").style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    async function addProduct() {
+        const formData = new FormData();
+        formData.append("name", document.getElementById("newProductName").value);
+        formData.append("price", document.getElementById("newProductPrice").value);
+        formData.append("featured", document.getElementById("newProductFeatured").value);
+        formData.append("image", document.getElementById("newProductImage").files[0]);
+
+        try {
+            const response = await fetch("http://127.0.0.1:5000/api/add-product", {
+                method: "POST",
+                body: formData
+            });
+            const result = await response.json();
+            alert(result.message || "Product added successfully!");
+            window.location.reload();
+        } catch (error) {
+            console.error("Failed to add product:", error);
+            alert("Error adding product!");
+        }
+    }
+
+    document.getElementById("addProductButton").addEventListener("click", addProduct);
     document.addEventListener("DOMContentLoaded", fetchData);
 </script>
 </body>
