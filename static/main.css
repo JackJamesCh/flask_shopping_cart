@@ -544,58 +544,59 @@ section h1, section p {
     animation: fadeInFromLeft 2s forwards; /* Apply animation */
 }
 
-/* Subtle white neon glow effect for the heading */
-section h1 {
+/* Subtle white neon glow effect for the heading on the shop page */
+.shop-page h1 {
     font-size: 3rem;
     color: #ffffff;
     text-shadow: 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 4px rgba(255, 255, 255, 0.3);
-    margin-bottom: 30px; /* Adjust space from the paragraph */
+    margin-bottom: 30px;
+    animation: fadeInFromLeft 1s ease-out forwards;
 }
 
-/* Subtle neon glow effect for the paragraph */
-section p {
+/* Subtle neon glow effect for the paragraph on the shop page */
+.shop-page p {
     font-size: 1.5rem;
     color: #ffffff;
     text-shadow: 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 4px rgba(255, 255, 255, 0.3);
     margin-bottom: 30px;
+    animation: fadeInFromLeft 1s ease-out forwards;
 }
 
-/* Keyframes for fade-in-from-left animation */
+/* Fade-in from left animation */
 @keyframes fadeInFromLeft {
     0% {
-        opacity: 0; /* Start as invisible */
-        transform: translateX(-50px); /* Start from left */
+        opacity: 0;
+        transform: translateX(-50px);
     }
     100% {
-        opacity: 1; /* End as fully visible */
-        transform: translateX(0); /* End at normal position */
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
-
-/* Initial button style with green on the left and red on the right */
+/* sort by price button style with green on the left and red on the right */
 #sortByPriceBtn {
-    background: linear-gradient(45deg, #a8e063, #ff6b6b); /* Green to Red gradient */
+    background: linear-gradient(45deg, #a8e063, #ff6b6b);
     color: white;
     font-size: 1.2rem;
-    font-weight: bold; /* Make the button text bold */
+    font-weight: bold;
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Hover effect: darken the button when cursor is on top */
+/* Hover effect */
 #sortByPriceBtn:hover {
-    background: linear-gradient(45deg, #8fbd45, #e55d5d); /* Darker green and red */
-    transform: scale(1.05); /* Slight scale up for effect */
+    background: linear-gradient(45deg, #8fbd45, #e55d5d);
+    transform: scale(1.05);
 }
 
-/* Optional: Focus effect (for accessibility) */
+/* Focus effect (for accessibility) */
 #sortByPriceBtn:focus {
-    outline: none; /* Remove default outline */
+    outline: none; /* Remove outline */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Add glow on focus */
 }
 

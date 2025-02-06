@@ -31,6 +31,18 @@
                     { field: "price", headerName: "Unit Price", flex: 1, editable: true},
                     { field: "featured", headerName: "Is Featured?", flex: 1, editable: true},
                     {
+                    field: "image",
+                    headerName: "Image",
+                    flex: 1,
+                    cellRenderer: (params) => {
+                        if (params.value) {
+                            return `<img src="${params.value}" alt="Product Image"
+                                        style="width: 50px; height: 50px; border-radius: 5px; object-fit: cover;">`;
+                        }
+                        return "";
+                    }
+                },
+                    {
                         headerName: "Delete",
                         cellRenderer: (params) => {
                             const button = document.createElement("button");

@@ -14,7 +14,8 @@
     {% include "navbar.html" %}
 
     <!-- Products Section -->
-     <section>
+
+     <section class="shop-page">
         <h1>Explore Our Collection</h1>
         <p>Discover the perfect frames to complement your style.</p>
         <!-- Sort by Price Button -->
@@ -76,7 +77,7 @@
                 <img src="${product.image}" alt="${product.name}">
                 <div class="info">
                     <h3>${product.name}</h3>
-                    <p>$${product.price}</p>
+                    <p>€${product.price}</p>
                     <button class="add-to-cart" data-product='${JSON.stringify(product)}'>Add to Cart</button>
                 </div>
             `;
